@@ -1,0 +1,410 @@
+.definition
+# VSETVL and VSETVLI Instruction
+vsetvl    =    [1...........00000111000001010111]  # both rd and rs are zero
+vsetvl0   =    [1...........00000111....11010111]  # rs1 = 0 and rd != 0
+vsetvl1   =    [1...........00000111...1.1010111]  # rs1 = 0 and rd != 0
+vsetvl2   =    [1...........00000111..1..1010111]  # rs1 = 0 and rd != 0
+vsetvl3   =    [1...........00000111.1...1010111]  # rs1 = 0 and rd != 0
+vsetvl4   =    [1...........000001111....1010111]  # rs1 = 0 and rd != 0
+vsetvl5   =    [1...............1111.....1010111]  # rs1 != 0 and rd != 0
+vsetvl6   =    [1..............1.111.....1010111]  # rs1 != 0 and rd != 0
+vsetvl7   =    [1.............1..111.....1010111]  # rs1 != 0 and rd != 0
+vsetvl8   =    [1............1...111.....1010111]  # rs1 != 0 and rd != 0
+vsetvl9   =    [1...........1....111.....1010111]  # rs1 != 0 and rd != 0
+
+vsetvli   =    [0...........00000111000001010111]  # both rd and rs are zero
+vsetvli0  =    [0...........00000111....11010111]  # rs1 = 0 and rd != 0
+vsetvli1  =    [0...........00000111...1.1010111]  # rs1 = 0 and rd != 0
+vsetvli2  =    [0...........00000111..1..1010111]  # rs1 = 0 and rd != 0
+vsetvli3  =    [0...........00000111.1...1010111]  # rs1 = 0 and rd != 0
+vsetvli4  =    [0...........000001111....1010111]  # rs1 = 0 and rd != 0
+vsetvli5  =    [0...............1111.....1010111]  # rs1 != 0 and rd != 0
+vsetvli6  =    [0..............1.111.....1010111]  # rs1 != 0 and rd != 0
+vsetvli7  =    [0.............1..111.....1010111]  # rs1 != 0 and rd != 0
+vsetvli8  =    [0............1...111.....1010111]  # rs1 != 0 and rd != 0
+vsetvli9  =    [0...........1....111.....1010111]  # rs1 != 0 and rd != 0
+
+
+# Vector Add Instruction (Interger Type)
+vadd.vv   =    [0000001..........000.....1010111] # both operands are vector
+vadd.vi   =    [0000001..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+vadd.vx   =    [0000001..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Vector Subtract Instruction (Interger Type)
+vsub.vv   =    [0000101..........000.....1010111] # both operands are vector
+vsub.vx   =    [0000101..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Unsigned minimum
+vminu.vv  =    [0001001..........000.....1010111] # both operands are vector
+vminu.vx  =    [0001001..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Signed minimum
+vmin.vv   =    [0001011..........000.....1010111] # both operands are vector
+vmin.vx   =    [0001011..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Unsigned maximum
+vmaxu.vv  =    [0001101..........000.....1010111] # both operands are vector
+vmaxu.vx  =    [0001101..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Signed maximum
+vmax.vv   =    [0001111..........000.....1010111] # both operands are vector
+vmax.vx   =    [0001111..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Bitwise logical operations.
+vand.vv   =    [0010011..........000.....1010111] # both operands are vector
+vand.vx   =    [0010011..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vand.vi   =    [0010011..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+vor.vv    =    [0010101..........000.....1010111] # both operands are vector
+vor.vx    =    [0010101..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vor.vi    =    [0010101..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+vxor.vv   =    [0010111..........000.....1010111] # both operands are vector
+vxor.vx   =    [0010111..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vxor.vi   =    [0010111..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+# Set if equal
+vmseq.vv  =    [0110001..........000.....1010111] # both operands are vector
+vmseq.vx  =    [0110001..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vmseq.vi  =    [0110001..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+# Set if not equal
+vmsne.vv  =    [0110011..........000.....1010111] # both operands are vector
+vmsne.vx  =    [0110011..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vmsne.vi  =    [0110011..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+# Set if less than, unsigned
+vmsltu.vv =    [0110101..........000.....1010111] # both operands are vector
+vmsltu.vx =    [0110101..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Set if less than, signed
+vmslt.vv  =    [0110111..........000.....1010111] # both operands are vector
+vmslt.vx  =    [0110111..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Set if less than or equal, unsigned
+vmsleu.vv =    [0111001..........000.....1010111] # both operands are vector
+vmsleu.vx =    [0111001..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vmsleu.vi =    [0111001..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+# Set if less than or equal, signed
+vmsle.vv  =    [0111011..........000.....1010111] # both operands are vector
+vmsle.vx  =    [0111011..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vmsle.vi  =    [0111011..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+# Set if greater than, unsigned
+vmsgtu.vx =    [0111101..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vmsgtu.vi =    [0111101..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+# Set if greater than, signed
+vmsgt.vx  =    [0111111..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vmsgt.vi  =    [0111111..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+# Bit shift operations
+vsll.vv   =    [1001011..........000.....1010111] # both operands are vector
+vsll.vx   =    [1001011..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vsll.vi   =    [1001011..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+vsrl.vv   =    [1010001..........000.....1010111] # both operands are vector
+vsrl.vx   =    [1010001..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vsrl.vi   =    [1010001..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+vsra.vv   =    [1010011..........000.....1010111] # both operands are vector
+vsra.vx   =    [1010011..........100.....1010111] # 1 operand is vector and 2 operand is scalar
+vsra.vi   =    [1010011..........011.....1010111] # 1 operand is vector and 2 operand is immediate
+
+# Signed multiply, returning low bits of product
+vmul.vv   =    [1001011..........010.....1010111] # both operands are vector
+vmul.vx   =    [1001011..........110.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Signed multiply, returning high bits of product
+vmulh.vv  =    [1001111..........010.....1010111] # both operands are vector
+vmulh.vx  =    [1001111..........110.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Unsigned multiply, returning high bits of product
+vmulhu.vv =    [1001001..........010.....1010111] # both operands are vector
+vmulhu.vx =    [1001001..........110.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Signed(vs2)-Unsigned multiply, returning high bits of product
+vmulhsu.vv  =  [1001101..........010.....1010111] # both operands are vector
+vmulhsu.vx  =  [1001101..........110.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Unsigned divide. 
+vdivu.vv  =    [1000001..........010.....1010111] # both operands are vector
+vdivu.vx  =    [1000001..........110.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Signed divide
+vdiv.vv   =    [1000011..........010.....1010111] # both operands are vector
+vdiv.vx   =    [1000011..........110.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Unsigned remainder
+vremu.vv  =    [1000101..........010.....1010111] # both operands are vector
+vremu.vx  =    [1000101..........110.....1010111] # 1 operand is vector and 2 operand is scalar
+
+# Signed remainder
+vrem.vv   =    [1000111..........010.....1010111] # both operands are vector
+vrem.vx   =    [1000111..........110.....1010111] # 1 operand is vector and 2 operand is scalar
+
+
+# Vector unit-stride loads and stores
+
+vle8.v     =    [...000100000.....000.....0000111] # load byte
+vle16.v    =    [...000100000.....101.....0000111] # load half-word
+vle32.v    =    [...000100000.....110.....0000111] # load word
+vle64.v    =    [...000100000.....111.....0000111] # load element
+vse8.v     =    [...000100000.....000.....0100111] # store byte
+vse16.v    =    [...000100000.....101.....0100111] # store half-word
+vse32.v    =    [...000100000.....110.....0100111] # store word
+vse64.v    =    [...000100000.....111.....0100111] # store element
+
+# Vector strided loads and stores
+vlse8.v     =    [...0101..........000.....0000111] # load byte
+vlse16.v    =    [...0101..........101.....0000111] # load half-word
+vlse32.v    =    [...0101..........110.....0000111] # load word
+vlse64.v    =    [...0101..........111.....0000111] # load element
+vsse8.v     =    [...0101..........000.....0100111] # store byte
+vsse16.v    =    [...0101..........101.....0100111] # store half-word
+vsse32.v    =    [...0101..........110.....0100111] # store word
+vsse64.v    =    [...0101..........111.....0100111] # store element
+
+# Vector indexed loads and stores
+vlxei8.v     =    [...0111..........000.....0000111] # load byte
+vlxei16.v    =    [...0111..........101.....0000111] # load half-word
+vlxei32.v    =    [...0111..........110.....0000111] # load word
+vlxei64.v    =    [...0111..........111.....0000111] # load element
+vsxei8.v     =    [...0111..........000.....0100111] # store byte
+vsxei16.v    =    [...0111..........101.....0100111] # store half-word
+vsxei32.v    =    [...0111..........110.....0100111] # store word
+vsxei64.v    =    [...0111..........111.....0100111] # store element
+
+
+.input
+
+rv32v = {
+        i[31]
+        i[30]
+        i[29]
+        i[28]
+        i[27]
+        i[26]
+        i[25]
+        i[24]
+        i[23]
+        i[22]
+        i[21]
+        i[20]
+        i[19]
+        i[18]
+        i[17]
+        i[16]
+        i[15]
+        i[14]
+        i[13]
+        i[12]
+        i[11]
+        i[10]
+        i[9]
+        i[8]
+        i[7]
+        i[6]
+        i[5]
+        i[4]
+        i[3]
+        i[2]
+        i[1]
+        i[0]
+}
+
+.output
+
+rv32v = {
+      rs1  		# scalar source 1
+      rs2  		# scalar source 2
+      rd   		# scalar destination
+      vs1  		# vector source 1
+      vs2 		# vector source 2
+      vs3  		# vector source 3
+      vd   		# vector destination
+      imm12 		# vsetvli immediate
+      simm 		# scalar immediate
+      vm		# mask bit
+      vsetvl		# vector configuration
+      valu		# vector alu
+      vmul 		# vector mul
+      vdiv 		# vector div
+      vrem		# vector remainder
+      vlsu              # vector LSU
+      vload		# vector load active
+      vstore		# vector store active
+      vadd		# vector add
+      vsub		# vector sub
+      vand		# vector and
+      vor		# vector or
+      vxor		# vector xor	
+      vsll		# vector sll
+      vsra		# vector sra
+      vsrl		# vector srl
+      vmslt		# vector slt
+      vmseq		# vector seq
+      vmsne		# vector sne
+      vmsle		# vector sle
+      vmsgt		# vector sgt
+      vmin             # minimum
+      vmax             # maximum
+      unsign		# unsigned
+      sign		# signed
+      by		# byte
+      half		# half-word
+      word		# word
+      element		# element
+      csr_read		# vector csr_read
+      csr_write_1	# vector csr_write vtype
+      csr_write_2	# vector csr_write vl
+      rs1_sign		# scalar source 1 sign
+      rs2_sign		# scalar source 2 sign
+      vs1_sign		# vector source 1 sign
+      vs2_sign		# vector source 2 sign
+      low		# multiply low bits
+      unit_st		# unit stride load/store
+      stride		# strided load/store
+      indexed		# indexed load/store
+      zero_extend	
+      sign_extend
+      i0_only
+}
+
+.decode
+
+rv32v[vsetvl]      = {     rs2    csr_write_1             vsetvl csr_read }
+rv32v[vsetvl{0-4}] = {     rs2 rd csr_write_1 csr_write_2 vsetvl          }
+rv32v[vsetvl{5-9}] = { rs1 rs2 rd csr_write_1 csr_write_2 vsetvl          }
+
+rv32v[vsetvli]      = {         csr_write_1             vsetvl csr_read imm12 }
+rv32v[vsetvli{0-4}] = {      rd csr_write_1 csr_write_2 vsetvl          imm12 }
+rv32v[vsetvli{5-9}] = { rs1  rd csr_write_1 csr_write_2 vsetvl          imm12 } 
+
+rv32v[vadd.vv] = { valu vs1   vs2 vd vadd }
+rv32v[vadd.vi] = { valu simm  vs2 vd vadd } 
+rv32v[vadd.vx] = { valu rs1   vs2 vd vadd }
+
+rv32v[vsub.vv] = { valu vs1   vs2 vd vsub } 
+rv32v[vsub.vx] = { valu rs1   vs2 vd vsub }
+
+rv32v[vand.vv] = { valu vs1   vs2 vd vand }
+rv32v[vand.vi] = { valu simm  vs2 vd vand }
+rv32v[vand.vx] = { valu rs1   vs2 vd vand }
+
+rv32v[vor.vv]  = { valu vs1   vs2 vd vor  }
+rv32v[vor.vi]  = { valu simm  vs2 vd vor  }
+rv32v[vor.vx]  = { valu rs1   vs2 vd vor  }
+
+rv32v[vxor.vv] = { valu vs1   vs2 vd vxor }
+rv32v[vxor.vi] = { valu simm  vs2 vd vxor }
+rv32v[vxor.vx] = { valu rs1   vs2 vd vxor }
+
+rv32v[vsll.vv] = { valu vs1   vs2 vd vsll sign_extend }
+rv32v[vsll.vi] = { valu simm  vs2 vd vsll zero_extend }
+rv32v[vsll.vx] = { valu rs1   vs2 vd vsll sign_extend }
+
+rv32v[vsra.vv] = { valu vs1   vs2 vd vsra sign_extend }
+rv32v[vsra.vi] = { valu simm  vs2 vd vsra zero_extend }
+rv32v[vsra.vx] = { valu rs1   vs2 vd vsra sign_extend }
+
+rv32v[vsrl.vv] = { valu vs1   vs2 vd vsrl zero_extend }
+rv32v[vsrl.vi] = { valu simm  vs2 vd vsrl zero_extend }
+rv32v[vsrl.vx] = { valu rs1   vs2 vd vsrl zero_extend }
+
+rv32v[vmslt.vv]  = { valu vs1   vs2 vd vsub vmslt sign     }
+rv32v[vmslt.vx]  = { valu rs1   vs2 vd vsub vmslt sign     }
+
+rv32v[vmsltu.vv] = { valu vs1   vs2 vd vsub vmslt unsign   }
+rv32v[vmsltu.vx] = { valu rs1   vs2 vd vsub vmslt unsign   }
+
+rv32v[vmseq.vv]  = { valu vs1   vs2 vd vsub vmseq         }
+rv32v[vmseq.vi]  = { valu simm  vs2 vd vsub vmseq         }
+rv32v[vmseq.vx]  = { valu rs1   vs2 vd vsub vmseq         }
+
+rv32v[vmsne.vv]  = { valu vs1   vs2 vd vsub vmsne         }
+rv32v[vmsne.vi]  = { valu simm  vs2 vd vsub vmsne         }
+rv32v[vmsne.vx]  = { valu rs1   vs2 vd vsub vmsne         }
+
+rv32v[vmsle.vv]  = { valu vs1   vs2 vd vsub vmsle sign    }
+rv32v[vmsle.vi]  = { valu simm  vs2 vd vsub vmsle sign    }
+rv32v[vmsle.vx]  = { valu rs1   vs2 vd vsub vmsle sign    }
+
+rv32v[vmsleu.vv] = { valu vs1   vs2 vd vsub vmsle unsign  }
+rv32v[vmsleu.vi] = { valu simm  vs2 vd vsub vmsle unsign  }
+rv32v[vmsleu.vx] = { valu rs1   vs2 vd vsub vmsle unsign  }
+
+rv32v[vmsgt.vi]  = { valu simm  vs2 vd vsub vmsgt sign    }
+rv32v[vmsgt.vx]  = { valu rs1   vs2 vd vsub vmsgt sign    }
+
+rv32v[vmsgtu.vi] = { valu simm  vs2 vd vsub vmsgt unsign  }
+rv32v[vmsgtu.vx] = { valu rs1   vs2 vd vsub vmsgt unsign  }
+
+rv32v[vminu.vv]  = { valu vs1   vs2 vd vsub vmin  unsign  }
+rv32v[vminu.vx]  = { valu rs1   vs2 vd vsub vmin  unsign  }
+
+rv32v[vmin.vv]   = { valu vs1   vs2 vd vsub vmin    sign  }
+rv32v[vmin.vx]   = { valu rs1   vs2 vd vsub vmin    sign  }
+
+rv32v[vmaxu.vv]  = { valu vs1   vs2 vd vsub vmax  unsign  }
+rv32v[vmaxu.vx]  = { valu rs1   vs2 vd vsub vmax  unsign  }
+
+rv32v[vmax.vv]   = { valu vs1   vs2 vd vsub vmax    sign  }
+rv32v[vmax.vx]   = { valu rs1   vs2 vd vsub vmax    sign  }
+
+rv32v[vmul.vv]    = { vmul vs1 vs2   vd  low sign }
+rv32v[vmul.vx]    = { vmul rs1 vs2   vd  low sign }
+
+rv32v[vmulh.vv]   = { vmul vs1 vs2   vd vs1_sign vs2_sign sign }
+rv32v[vmulh.vx]   = { vmul rs1 vs2   vd rs1_sign vs2_sign sign }
+
+rv32v[vmulhu.vv]  = { vmul vs1 vs2   vd unsign }
+rv32v[vmulhu.vx]  = { vmul rs1 vs2   vd unsign }
+
+rv32v[vmulhsu.vv] = { vmul vs1 vs2   vd vs2_sign unsign }
+rv32v[vmulhsu.vx] = { vmul rs1 vs2   vd vs2_sign unsign }
+
+rv32v[vdiv.vv]     = { vdiv vs1 vs2   vd i0_only sign }
+rv32v[vdiv.vx]     = { vdiv rs1 vs2   vd i0_only sign }
+
+rv32v[vdivu.vv]    = { vdiv vs1 vs2   vd i0_only unsign }
+rv32v[vdivu.vx]    = { vdiv rs1 vs2   vd i0_only unsign }
+
+rv32v[vrem.vv]     = { vdiv vs1 vs2   vd i0_only vrem sign } 
+rv32v[vrem.vx]     = { vdiv rs1 vs2   vd i0_only vrem sign }
+
+rv32v[vremu.vv]    = { vdiv vs1 vs2   vd i0_only unsign vrem }
+rv32v[vremu.vx]    = { vdiv rs1 vs2   vd i0_only unsign vrem }
+
+rv32v[vle8.v]    = { vlsu rs1        vd  vload unit_st by      sign_extend }
+rv32v[vle16.v]   = { vlsu rs1        vd  vload unit_st half    sign_extend }
+rv32v[vle32.v]   = { vlsu rs1        vd  vload unit_st word    sign_extend }
+rv32v[vle64.v]   = { vlsu rs1        vd  vload unit_st element sign_extend }
+
+rv32v[vse8.v]    = { vlsu rs1       vs3 vstore unit_st by   }
+rv32v[vse16.v]   = { vlsu rs1       vs3 vstore unit_st half }
+rv32v[vse32.v]   = { vlsu rs1       vs3 vstore unit_st word }
+rv32v[vse64.v]   = { vlsu rs1       vs3 vstore unit_st element }
+
+rv32v[vlse8.v]   = { vlsu rs1 rs2    vd  vload by          stride sign_extend }
+rv32v[vlse16.v]  = { vlsu rs1 rs2    vd  vload half        stride sign_extend }
+rv32v[vlse32.v]  = { vlsu rs1 rs2    vd  vload word        stride sign_extend }
+rv32v[vlse64.v]  = { vlsu rs1 rs2    vd  vload element     stride sign_extend }
+
+rv32v[vsse8.v]   = { vlsu rs1 rs2   vs3 vstore by   stride }
+rv32v[vsse16.v]  = { vlsu rs1 rs2   vs3 vstore half stride }
+rv32v[vsse32.v]  = { vlsu rs1 rs2   vs3 vstore word stride }
+rv32v[vsse64.v]  = { vlsu rs1 rs2   vs3 vstore element stride }
+
+rv32v[vlxei8.v]   = { vlsu rs1 vs2    vd  vload by          indexed sign_extend }
+rv32v[vlxei16.v]  = { vlsu rs1 vs2    vd  vload half        indexed sign_extend }
+rv32v[vlxei32.v]  = { vlsu rs1 vs2    vd  vload word        indexed sign_extend }
+rv32v[vlxei64.v]  = { vlsu rs1 vs2    vd  vload element     indexed sign_extend }
+
+rv32v[vsxei8.v]   = { vlsu rs1 vs2   vs3 vstore by   indexed }
+rv32v[vsxei16.v]  = { vlsu rs1 vs2   vs3 vstore half indexed }
+rv32v[vsxei32.v]  = { vlsu rs1 vs2   vs3 vstore word indexed }
+rv32v[vsxei64.v]  = { vlsu rs1 vs2   vs3 vstore element indexed }
+
+.end
