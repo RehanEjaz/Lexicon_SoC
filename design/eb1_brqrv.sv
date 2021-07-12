@@ -1314,40 +1314,6 @@ import eb1_pkg::*;
    assign dma_axi_arburst_int[1:0]             = pt.BUILD_AHB_LITE ? dma_axi_arburst_ahb[1:0] : dma_axi_arburst[1:0];
    assign dma_axi_rready_int                   = pt.BUILD_AHB_LITE ? dma_axi_rready_ahb : dma_axi_rready;
 
-
-// Output of LSU bus.
-   // AXI Write Channels
-   assign lsu_axi_awvalid = lsu_axi_awvalid;
-   assign lsu_axi_awid = lsu_axi_awid;
-   assign lsu_axi_awaddr = lsu_axi_awaddr; 
-   assign lsu_axi_awregion = lsu_axi_awregion;
-   assign lsu_axi_awlen = lsu_axi_awlen;
-   assign lsu_axi_awsize = lsu_axi_awsize;
-   assign lsu_axi_awburst = lsu_axi_awburst;
-   assign lsu_axi_awlock = lsu_axi_awlock;
-   assign lsu_axi_awcache = lsu_axi_awcache; 
-   assign lsu_axi_awprot = lsu_axi_awprot;
-   assign lsu_axi_awqos = lsu_axi_awqos;
- 
-   assign lsu_axi_wvalid = lsu_axi_wvalid;
-   assign lsu_axi_wdata = lsu_axi_wdata;
-   assign lsu_axi_wstrb = lsu_axi_wstrb;
-   assign lsu_axi_wlast = lsu_axi_wlast;
-   assign lsu_axi_bready = lsu_axi_bready;
-   
-   // AXI Read Channels 
-   assign lsu_axi_arvalid = lsu_axi_arvalid;
-   assign lsu_axi_arid = lsu_axi_arid;
-   assign lsu_axi_araddr = lsu_axi_araddr;
-   assign lsu_axi_arregion = lsu_axi_arregion;
-   assign lsu_axi_arlen = lsu_axi_arlen;
-   assign lsu_axi_arsize = lsu_axi_arsize;
-   assign lsu_axi_arburst = lsu_axi_arburst;
-   assign lsu_axi_arlock = lsu_axi_arlock;
-   assign lsu_axi_arcache = lsu_axi_arcache;
-   assign lsu_axi_arprot = lsu_axi_arprot;
-   assign lsu_axi_arqos = lsu_axi_arqos;
-   assign lsu_axi_rready = lsu_axi_rready;
  
 if  (pt.BUILD_AHB_LITE == 1) begin
 `ifdef RV_ASSERT_ON

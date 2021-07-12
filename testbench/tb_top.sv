@@ -343,10 +343,10 @@ module tb_top ( input bit core_clk );
     	end*/
     end 
 
-    parameter MAX_CYCLES = 2_000_000;
+    parameter MAX_CYCLES = 9_000_000;
 
-    integer fd, tp, el;
-
+    integer fd, tp, el, sw, p;
+    string a,x,y,z;
     always @(negedge core_clk) begin
         cycleCnt <= cycleCnt+1;
         // Test timeout monitor
@@ -381,14 +381,33 @@ module tb_top ( input bit core_clk );
 
     // trace monitor
     always @(posedge core_clk) begin
-        vpr_valid <= rvtop.brqrv.vector_processing_unit.vector_decode.dest_pkg;
         wb_valid  <= rvtop.brqrv.dec.dec_i0_wen_r;
         wb_dest   <= rvtop.brqrv.dec.dec_i0_waddr_r;
         wb_data   <= rvtop.brqrv.dec.dec_i0_wdata_r;
-        if (trace_rv_i_valid_ip | vpr_valid[2]) begin
-           $fwrite(tp,"%b,%h,%h,%0h,%0h,3,%b,%h,%h,%b,%b\n", trace_rv_i_valid_ip, 0, trace_rv_i_address_ip,
+
+        a = dasm(trace_rv_i_insn_ip, trace_rv_i_address_ip, wb_dest & {5{wb_valid}}, wb_data);
+       	 
+       	 for(int i = 0; i<a.len(); i=i+1) begin
+       	 	if(a[i] == ",") begin
+       	 	        a.putc(i,"/");
+       	 	end
+      		 end  
+       	 for(int i = 0; i<a.len(); i=i+1) begin
+       	 	if(a[i] == "/") begin	
+       	 	     y = a.substr(0,i-3);
+       	 	     x = a.substr(i-3,a.len()-1);
+       	             //$display("%s, %h", x,p);
+       	             break;
+       	        end
+       	 end
+
+        			
+        if (trace_rv_i_valid_ip) begin
+           $fwrite(tp,"%b,%h,%h,%0h,%0h,3,%b,%h,%h,%b\n", trace_rv_i_valid_ip, 0, trace_rv_i_address_ip,
                   0, trace_rv_i_insn_ip,trace_rv_i_exception_ip,trace_rv_i_ecause_ip,
-                  trace_rv_i_tval_ip,trace_rv_i_interrupt_ip,vpr_valid);
+                  trace_rv_i_tval_ip,trace_rv_i_interrupt_ip);
+                  
+           $fwrite(sw, "%h, %s, %s, 0, %0h, 3, %s, %s\n", trace_rv_i_address_ip,y,(wb_dest !=0 && wb_valid) ? $sformatf("%s=%h", abi_reg[wb_dest], wb_data) : (rvtop.brqrv.dec.dec_nonblock_load_wen) ? $sformatf("%s=%h", abi_reg[rvtop.brqrv.dec.dec_nonblock_load_waddr], rvtop.brqrv.dec.lsu_nonblock_load_data) : (rvtop.brqrv.dec.exu_div_wren) ? $sformatf("%s=%h", abi_reg[rvtop.brqrv.dec.div_waddr_wb], rvtop.brqrv.dec.exu_div_result) :   "             ", trace_rv_i_insn_ip, a,x); 
                  
            // Basic trace - no exception register updates
            // #1 0 ee000000 b0201073 c 0b02       00000000
@@ -398,13 +417,13 @@ module tb_top ( input bit core_clk );
                         (wb_dest !=0 && wb_valid)?  $sformatf("%s=%h", abi_reg[wb_dest], wb_data) : "             ",
                         dasm(trace_rv_i_insn_ip, trace_rv_i_address_ip, wb_dest & {5{wb_valid}}, wb_data)
                    );
-        end
+	end
+	
         if(rvtop.brqrv.dec.dec_nonblock_load_wen)
            $fwrite (el, "%10d : %32s=%h ; nbL\n", cycleCnt, abi_reg[rvtop.brqrv.dec.dec_nonblock_load_waddr], rvtop.brqrv.dec.lsu_nonblock_load_data);
         if(rvtop.brqrv.dec.exu_div_wren)
-           $fwrite (el, "%10d : %32s=%h ; nbD\n", cycleCnt, abi_reg[rvtop.brqrv.dec.div_waddr_wb], rvtop.brqrv.dec.exu_div_result);
+           $fwrite (el, "%10d : %32s=%h ; nbD\n", cycleCnt, abi_reg[rvtop.brqrv.dec.div_waddr_wb], rvtop.brqrv.dec.exu_div_result);	   
     end
-
 
     initial begin
         abi_reg[0] = "zero";
@@ -494,6 +513,7 @@ module tb_top ( input bit core_clk );
         $readmemh("program.hex",  imem.mem);
         //$readmemh("program.hex",  uart_programmer.INSTR);
         tp = $fopen("trace_port.csv","w");
+        sw = $fopen("swerv.csv","w");
         el = $fopen("exec.log","w");
         $fwrite (el, "//   Cycle : #inst    0    pc    opcode    reg=value   ; mnemonic\n");
         fd = $fopen("console.log","w");

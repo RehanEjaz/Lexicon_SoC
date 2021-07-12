@@ -1117,7 +1117,7 @@ end : cam_array
    assign any_csr_d      =  i0_dp.csr_read | i0_csr_write;
    assign bitmanip_legal =  bitmanip_zbb_legal & bitmanip_zbs_legal & bitmanip_zbe_legal & bitmanip_zbc_legal & bitmanip_zbp_legal & bitmanip_zbr_legal & bitmanip_zbf_legal & bitmanip_zba_legal & bitmanip_zbb_zbp_legal;
 
-   assign i0_legal       =  (i0_dp.legal | ~illegal_instr) & (~any_csr_d | dec_csr_legal_d) & bitmanip_legal;
+   assign i0_legal       =  (i0_dp.legal) & (~any_csr_d | dec_csr_legal_d) & bitmanip_legal;
 
 
 
