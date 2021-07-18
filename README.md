@@ -1,10 +1,4 @@
-# Links to google sheet
-
-Google Sheet: https://docs.google.com/spreadsheets/d/1G5302KCdBZir8v8RD8fYUEEc2N2Q5VWQXetpALpeBBQ/edit?usp=sharing
-
-Presentation: https://docs.google.com/presentation/d/1ULtKhCK543sy2WRMz9QX6HoOgvMMswhioXEQRTPKaOo/edit?usp=sharing
-
-#  Lexicon RISC-V Core<sup>TM</sup> 1.3 from MERL
+#  Lexicon SoC From MERL
 
 This repository contains the Lexicon  Core<sup>TM</sup>  design RTL
 
@@ -214,10 +208,3 @@ dhry              - Run dhrystone. (Scale by 1757 to get DMIPS/MHZ)
 The `$RV_ROOT/testbench/hex` directory contains precompiled hex files of the tests, ready for simulation in case RISCV SW tools are not installed.
 
 **Note**: The testbench has a simple synthesizable bridge that allows you to load the ICCM via load/store instructions. This is only supported for AXI4 builds.
-
-
-
-----
-MERL, the MERL logo, G-Technology, SanDisk, Tegile, Upthere, WD, Lexicon Core, Lexicon ISS, 
-and OmniXtend are registered trademarks or trademarks of MERL Corporation or its affiliates in the US 
-and/or other countries. All other marks are the property of their respective owners.
