@@ -192,7 +192,7 @@ program.hex: $(OFILES) $(LINK)
 	$(GCC_PREFIX)-gcc -Wl,-m,elf32lriscv -Wl,--discard-none -T$(LINK) -o $(TEST).exe $(OFILES) -nostartfiles -nostdlib $(TEST_LIBS)
 	$(GCC_PREFIX)-objcopy -O verilog  $(TEST).exe program.hex
 	$(GCC_PREFIX)-objcopy -O verilog -j ".text" --change-section-lma ".text"=0x0 --reverse-bytes=2 $(TEST).exe uart.hex 
-	echo '00 00 00 00 0F FF' >> uart.hex 
+	echo '00 00 0F FF' >> uart.hex 
 	$(GCC_PREFIX)-objdump -S  $(TEST).exe > $(TEST).dis
 	@echo Completed building $(TEST)
 
